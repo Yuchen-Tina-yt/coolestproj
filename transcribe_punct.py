@@ -49,34 +49,30 @@ def transcribe_file_with_auto_punctuation(path):
         # print('-' * 20)
         # print('First alternative of result {}'.format(i))
         ret.append(alternative.transcript)
-    return '\n'.join(ret)
+    return '<br/>'.join(ret)
     # [END speech_transcribe_auto_punctuation]
+
 # Imports the Google Cloud client library
-"""
-def upload_file(file_stram, filename, content_type)
-    from google.cloud import storage
-    # Instantiates a client
-    storage_client = storage.Client()
 
-    # The name for the new bucket
-    bucket_name = 'my-new-bucket'
-    # Creates the new bucket
-    bucket = storage_client.create_bucket(bucket_name)
-    blob = bucket.blob(filename)
-
-    blob.upload_from_string(
-        file_stream)
-
-    url = blob.public_url
-    if isinstance(url, six.binary_type):
-        url = url.decode('utf-8')
-
-    return url
-"""
-
-
-
-
+# def upload_file(file_stram, filename, content_type)
+#     from google.cloud import storage
+#     # Instantiates a client
+#     storage_client = storage.Client()
+#
+#     # The name for the new bucket
+#     bucket_name = 'my-new-bucket'
+#     # Creates the new bucket
+#     bucket = storage_client.create_bucket(bucket_name)
+#     blob = bucket.blob(filename)
+#
+#     blob.upload_from_string(
+#         file_stream)
+#
+#     url = blob.public_url
+#     if isinstance(url, six.binary_type):
+#         url = url.decode('utf-8')
+#
+#     return url
 
 #print('Bucket {} created.'.format(bucket.name))
 

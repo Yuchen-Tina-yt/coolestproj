@@ -1,18 +1,43 @@
 import logging
 from transcribe_punct import transcribe_file_with_auto_punctuation
-import upload
-from flask import Flask, render_template
-
+from upload import upload, upload_file
+from flask import *
+from google.cloud import storage
 
 app = Flask(__name__)
+app.secret_key = "testing"
 
-@app.route('/')
+ALLOWED_EXT = ['wav','mp3']
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXT
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    client = storage.Client()
+    bucket_name = 'bigredsad'
+    bucket = client.create_bucket(bucket_name)
+
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash("No File Found")
+            return redirect(request.url)
+        file = request.files['file']
+
+        if file.filename == '':
+            flash("No selected file")
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            url = upload(file,bucket)
+            flash("File uploaded")
+            return "SUCCESS"
+            # return transcribe_file_with_auto_punctuation(url)
     return render_template('index.html')
 
-@app.route('/transc')
-def transc():
-    return transcribe_file_with_auto_punctuation('commercial_mono.wav')
+
+# @app.route('/transc')
+# def transc():
+#     return transcribe_file_with_auto_punctuation('commercial_mono.wav')
 
 @app.errorhandler(500)
 def server_error(e):

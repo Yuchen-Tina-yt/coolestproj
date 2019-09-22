@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     <title>Online Audio-to-Text Converter</title>
-    <script src="https://unpkg.com/react@15/dist/react.js"></script>
-    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,13 +13,21 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <div id="root"></div>
     <h1>Online Audio-to-Text Converter</h1>
     <p>
       This is an online speech-to-text tool.<n></n>
       It can convert your lecture recordings into text!
       Start by uploading your audio below.
     </p>
+<<<<<<< HEAD
      <a href = upload.py>Upload Here</a>
+=======
+     <a href = "">Upload Here</a>
+     <form method=post enctype=multipart/form-data style="text-align:center">
+        <input type=file name=file>
+        <input type=submit value=Upload>
+      </form>
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+>>>>>>> 39fb16541f2998f4bab644c0526f9f42d5c29de8
   </body>
 </html>
