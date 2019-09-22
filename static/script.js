@@ -22,8 +22,3 @@ import React, {Component} from 'react';
       </div>
     }
 }
-
-React.render(
-  React.createElement(App),
-  document.getElementById("root")
-);

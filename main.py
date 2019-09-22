@@ -8,7 +8,7 @@ import audiotools
 app = Flask(__name__)
 app.secret_key = "testing"
 
-ALLOWED_EXT = ['wav','mp3']
+ALLOWED_EXT = ['wav','mp3','m4a']
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXT
@@ -29,7 +29,7 @@ def conversion(file):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     client = storage.Client()
-    bucket_name = 'fakeadults'
+    bucket_name = 'lectext-253615.appspot.com'
     #bucket = client.create_bucket(bucket_name)
     bucket = client.get_bucket(bucket_name)
 
@@ -42,20 +42,19 @@ def index():
         if file.filename == '':
             flash("No selected file")
             return redirect(request.url)
-            
+
         if file and allowed_file(file.filename):
             newfile = conversion(file)
             blob = bucket.blob(newfile.filename)
             blob.upload_from_filename(newfile.filename)
             flash("File uploaded")
-            return transcribe_file_with_auto_punctuation(newfile)
+            print("*******************")
+            print(newfile.filename)
+            print("*******************")
+            return transcribe_file_with_auto_punctuation(
+                f'gs://{bucket_name}/{newfile.filename}')
             # return transcribe_file_with_auto_punctuation(url)
     return render_template('index.html')
-
-
-# @app.route('/transc')
-# def transc():
-#     return transcribe_file_with_auto_punctuation('commercial_mono.wav')
 
 @app.errorhandler(500)
 def server_error(e):
