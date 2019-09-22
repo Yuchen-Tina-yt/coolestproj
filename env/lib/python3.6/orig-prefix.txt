@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 /anaconda3
+=======
+/Applications/anaconda3
+>>>>>>> 5a14306fbdcd36f5c351f4892da5ea384a7604e9

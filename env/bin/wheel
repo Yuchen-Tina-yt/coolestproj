@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/Users/nkother/Documents/hacks/coolestproj/env/bin/python3
+=======
+#!/Users/user/Desktop/UNI/ECs/projects/coolestproj/env/bin/python3
+>>>>>>> 5a14306fbdcd36f5c351f4892da5ea384a7604e9
 # -*- coding: utf-8 -*-
 import re
 import sys

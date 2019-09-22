@@ -46,7 +46,11 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
+<<<<<<< HEAD
 VIRTUAL_ENV="/Users/nkother/Documents/hacks/coolestproj/env"
+=======
+VIRTUAL_ENV="/Users/user/Desktop/UNI/ECs/projects/coolestproj/env"
+>>>>>>> 5a14306fbdcd36f5c351f4892da5ea384a7604e9
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
