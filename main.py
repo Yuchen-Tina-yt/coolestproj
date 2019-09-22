@@ -1,5 +1,5 @@
 import logging
-import transcribe_punct
+from transcribe_punct import transcribe_file_with_auto_punctuation
 
 from flask import Flask, render_template
 
@@ -10,6 +10,10 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/transc')
+def transc():
+    return transcribe_file_with_auto_punctuation('commercial_mono.wav')
 
 
 @app.errorhandler(500)
