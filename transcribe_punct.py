@@ -20,35 +20,58 @@ and recognition metadata.
 Example usage:
     python transcribe_auto_punctuation.py resources/commercial_mono.wav
 """
-
+import wave
 import argparse
-import io
+# import io
+# import cloudstorage as gcs
 
 
-def transcribe_file_with_auto_punctuation(file):
+def stereo_to_mono(audio_file_name):
+    sound = pydub.AudioSegment.from_wav(audio_file_name)
+    sound = sound.set_channels(1)
+    sound.export(audio_file_name, format="wav")
+
+def mp3_to_wav(audio_file_name):
+    if audio_file_name.split('.')[1] == 'mp3':
+        sound = AudioSegment.from_mp3(audio_file_name)
+        audio_file_name = audio_file_name.split('.')[0] + '.wav'
+        sound.export(audio_file_name, format="wav")
+
+def frame_rate_channel(audio_file_name):
+    with wave.open(audio_file_name, "rb") as wave_file:
+        frame_rate = wave_file.getframerate()
+        channels = wave_file.getnchannels()
+        return frame_rate,channels
+
+def transcribe_file_with_auto_punctuation(path, frame_rate):
     """Transcribe the given audio file with auto punctuation enabled."""
     # [START speech_transcribe_auto_punctuation]
     from google.cloud import speech
     client = speech.SpeechClient()
 
-    # with io.open(path, 'rb') as file:
-    content = file.read()
+    # with gcs.open(path, 'rb') as file:
+    # content = file.read()
 
-    audio = speech.types.RecognitionAudio(content=content)
+    audio = speech.types.RecognitionAudio(uri=path)
     config = speech.types.RecognitionConfig(
         encoding=speech.enums.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=8000,
+        sample_rate_hertz=frame_rate,
         language_code='en-US',
         # Enable automatic punctuation
         enable_automatic_punctuation=True)
-
-    response = client.recognize(config, audio)
+    try:
+        response = client.long_running_recognize(config, audio)
+    except:
+        response = client.recognize(config, audio)
     ret = []
+
     for i, result in enumerate(response.results):
         alternative = result.alternatives[0]
         # print('-' * 20)
+
         # print('First alternative of result {}'.format(i))
         ret.append(alternative.transcript)
+
     return '<br/>'.join(ret)
     # [END speech_transcribe_auto_punctuation]
 
@@ -75,13 +98,3 @@ def transcribe_file_with_auto_punctuation(file):
 #     return url
 
 #print('Bucket {} created.'.format(bucket.name))
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('path', help='File to stream to the API')
-
-    args = parser.parse_args()
-
-    transcribe_file_with_auto_punctuation(args.path)
