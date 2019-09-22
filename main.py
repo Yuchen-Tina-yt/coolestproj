@@ -42,6 +42,7 @@ def index():
         if file.filename == '':
             flash("No selected file")
             return redirect(request.url)
+            
         if file and allowed_file(file.filename):
             newfile = conversion(file)
             blob = bucket.blob(newfile.filename)

@@ -44,7 +44,7 @@ def frame_rate_channel(audio_file_name):
         channels = wave_file.getnchannels()
         return frame_rate,channels
 
-def transcribe_file_with_auto_punctuation(path, frame_rate):
+def transcribe_file_with_auto_punctuation(path):
     """Transcribe the given audio file with auto punctuation enabled."""
     # [START speech_transcribe_auto_punctuation]
     from google.cloud import speech
