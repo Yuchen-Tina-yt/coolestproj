@@ -44,12 +44,13 @@ def transcribe_file_with_auto_punctuation(path):
         enable_automatic_punctuation=True)
 
     response = client.recognize(config, audio)
-
+    ret = []
     for i, result in enumerate(response.results):
         alternative = result.alternatives[0]
         # print('-' * 20)
         # print('First alternative of result {}'.format(i))
-        print(alternative.transcript)
+        ret.append(alternative.transcript)
+    return '\n'.join(ret)
     # [END speech_transcribe_auto_punctuation]
 
 if __name__ == '__main__':
