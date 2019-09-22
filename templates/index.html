@@ -1,7 +1,9 @@
-<!--DOCTYPE html-->
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Online Audio-to-Text Converter</title>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +15,7 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
+    <div id="root"></div>
     <h1>Online Audio-to-Text Converter</h1>
     <p>
       This is an online speech-to-text tool.<n></n>
@@ -20,10 +23,5 @@
       Start by uploading your audio below.
     </p>
      <a href = "https://console.cloud.google.com/storage/browser/filestorage09212019?project=lecproj&authuser=2">Upload Here</a>
-
-    <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js"></script>
   </body>
 </html>
