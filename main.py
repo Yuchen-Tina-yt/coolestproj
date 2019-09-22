@@ -34,7 +34,6 @@ def index():
 # def transc():
 #     return transcribe_file_with_auto_punctuation('commercial_mono.wav')
 
-
 @app.errorhandler(500)
 def server_error(e):
     logging.exception('An error occurred during a request.')
@@ -42,7 +41,6 @@ def server_error(e):
     An internal error occurred: <pre>{}</pre>
     See logs for full stacktrace.
     """.format(e), 500
-
 
 if __name__ == '__main__':
     # This is used when running locally. Gunicorn is used to run the

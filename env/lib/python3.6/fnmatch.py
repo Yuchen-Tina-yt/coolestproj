@@ -1,1 +1,1 @@
-/Applications/anaconda3/lib/python3.6/fnmatch.py
+/anaconda3/lib/python3.6/fnmatch.py

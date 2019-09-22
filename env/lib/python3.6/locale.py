@@ -1,1 +1,1 @@
-/Applications/anaconda3/lib/python3.6/locale.py
+/anaconda3/lib/python3.6/locale.py
