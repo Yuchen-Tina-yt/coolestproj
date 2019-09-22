@@ -1,8 +1,9 @@
 import logging
 from transcribe_punct import transcribe_file_with_auto_punctuation
+from upload import upload, upload_file
 
 from flask import *
-
+from google.cloud import storage
 
 app = Flask(__name__)
 app.secret_key = "testing"
@@ -14,6 +15,10 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    client = storage.Client()
+    bucket_name = 'bigredsad'
+    bucket = client.create_bucket(bucket_name)
+
     if request.method == 'POST':
         if 'file' not in request.files:
             flash("No File Found")
@@ -22,11 +27,12 @@ def index():
 
         if file.filename == '':
             flash("No selected file")
-            return redirect(request.url) #TODO: redirect to NO SELECTED FILE
+            return redirect(request.url)
         if file and allowed_file(file.filename):
-            #TODO: ADD TO GOOGLE CLOUD STORAGE
+            url = upload(file,bucket)
             flash("File uploaded")
-            return transcribe_file_with_auto_punctuation('commercial_mono.wav')
+            return "SUCCESS"
+            # return transcribe_file_with_auto_punctuation(url)
     return render_template('index.html')
 
 
