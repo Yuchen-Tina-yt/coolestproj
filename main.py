@@ -1,9 +1,10 @@
 import logging
-from transcribe_punct import transcribe_file_with_auto_punctuation
+from transcribe_punct import *
 from upload import upload, upload_file
-
+from pydub import AudioSegment
 from flask import *
 from google.cloud import storage
+import wave
 
 app = Flask(__name__)
 app.secret_key = "testing"
@@ -25,15 +26,24 @@ def index():
             flash("No File Found")
             return redirect(request.url)
         file = request.files['file']
+        fname = file.filename
 
-        if file.filename == '':
+        if fname == '':
             flash("No selected file")
             return redirect(request.url)
-        if file and allowed_file(file.filename):
-            blob = bucket.blob(file.filename)
+        if file and not allowed_file(fname):
+            flash("Sorry, we can't process this file format :(")
+        if file and allowed_file(fname):
+            mp3_to_wav(fname)
+            frame_rate, channels = frame_rate_channel(fname)
+            if channels > 1:
+                stereo_to_mono(fname)
+
+            blob = bucket.blob(fname)
             blob.upload_from_file(file)
             flash("File uploaded")
-            return transcribe_file_with_auto_punctuation(file)
+            return transcribe_file_with_auto_punctuation(
+                f'gs://{bucket_name}/{fname}',frame_rate)
             # return transcribe_file_with_auto_punctuation(url)
     return render_template('index.html')
 
