@@ -1,0 +1,23 @@
+/* CSS files add styling rules to your content */
+
+body {
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 0;
+}
+
+head {
+  font-style: italic;
+  color: #373fff;
+}
+
+.parallex{
+  background-image: "documents/hacks/coolestproj/bg1.jpg"
+  min-height: 800px;
+  background-attachment:fixed;
+  background-position:center;
+  }
+
+
+
+
+}
