@@ -70,7 +70,7 @@ def transcribe_file_with_auto_punctuation(path, frame_rate):
         # print('-' * 20)
 
         # print('First alternative of result {}'.format(i))
-        ret.append(alternative.transcript)
+        ret.append(alternative[i].transcript)
 
     return '<br/>'.join(ret)
     # [END speech_transcribe_auto_punctuation]
