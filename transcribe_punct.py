@@ -25,14 +25,14 @@ import argparse
 import io
 
 
-def transcribe_file_with_auto_punctuation(path):
+def transcribe_file_with_auto_punctuation(file):
     """Transcribe the given audio file with auto punctuation enabled."""
     # [START speech_transcribe_auto_punctuation]
     from google.cloud import speech
     client = speech.SpeechClient()
-    # path = 'resources/commercial_mono.wav'
-    with io.open(path, 'rb') as audio_file:
-        content = audio_file.read()
+
+    # with io.open(path, 'rb') as file:
+    content = file.read()
 
     audio = speech.types.RecognitionAudio(content=content)
     config = speech.types.RecognitionConfig(
