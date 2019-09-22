@@ -1,15 +1,15 @@
 import logging
+import transcribe_punct
 
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
 
 
 @app.route('/')
-#def hello():
-    #"""Return a friendly HTTP greeting."""
-    #return 'Hello World!'
+def index():
+    return render_template('index.html')
 
 
 @app.errorhandler(500)
@@ -23,5 +23,5 @@ def server_error(e):
 
 if __name__ == '__main__':
     # This is used when running locally. Gunicorn is used to run the
-    # application on Google App Engine. See entrypoint in app.yaml.
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    # application on Google App Engine. See entrypoint in app.yaml. host='127.0.0.1'
+    app.run(port=8080, debug=True)
