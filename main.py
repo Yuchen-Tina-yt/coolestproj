@@ -11,12 +11,20 @@ ALLOWED_EXT = ['wav','mp3']
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXT
+def conversion(filename):
+    form os import path
+    from pydub impirt AudioSegment
+    if(filename)
+    src = filename
+    dst = "test.wav"
+    sound = AudioSegment.from_mp3(src)
+    sound.export(dst, format = "wav")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     client = storage.Client()
-    bucket_name = 'lectext-253615.appspot.com'
-    # bucket = client.create_bucket(bucket_name)
+    bucket_name = 'fakeadults'
+    #bucket = client.create_bucket(bucket_name)
     bucket = client.get_bucket(bucket_name)
 
     if request.method == 'POST':
