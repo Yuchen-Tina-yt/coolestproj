@@ -50,7 +50,7 @@ def transcribe_file_with_auto_punctuation(path):
         # print('-' * 20)
         # print('First alternative of result {}'.format(i))
         ret.append(alternative.transcript)
-    return '\n'.join(ret)
+    return '<br/>'.join(ret)
     # [END speech_transcribe_auto_punctuation]
 
 if __name__ == '__main__':
