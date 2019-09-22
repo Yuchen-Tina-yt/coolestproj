@@ -15,8 +15,9 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     client = storage.Client()
-    bucket_name = 'bigredsad'
-    bucket = client.create_bucket(bucket_name)
+    bucket_name = 'lectext-253615.appspot.com'
+    # bucket = client.create_bucket(bucket_name)
+    bucket = client.get_bucket(bucket_name)
 
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -28,9 +29,10 @@ def index():
             flash("No selected file")
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            url = upload(file,bucket)
+            blob = bucket.blob(file.filename)
+            blob.upload_from_file(file)
             flash("File uploaded")
-            return "SUCCESS"
+            return transcribe_file_with_auto_punctuation(file)
             # return transcribe_file_with_auto_punctuation(url)
     return render_template('index.html')
 
