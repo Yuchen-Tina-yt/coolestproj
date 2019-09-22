@@ -22,6 +22,7 @@ Example usage:
 """
 import wave
 import argparse
+from audiotools import *
 # import io
 # import cloudstorage as gcs
 
